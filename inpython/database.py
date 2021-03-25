@@ -1,6 +1,6 @@
 import pyodbc
 
-class Bacon():
+class Banco():
     def __init__(self):
         server = 'DESKTOP-O0728HG\SQLEXPRESS'
         database = 'ESTACIONAMENTO'
@@ -26,6 +26,3 @@ class Bacon():
         veiculos=self.cur.execute(f'''select * from veiculo'''),self.c.close()
         for i in veiculos:
             return i
-
-a=Bacon()
-a.show_veiculos()
