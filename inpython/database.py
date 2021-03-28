@@ -9,20 +9,24 @@ class Banco():
         self.cur = c.cursor()
 
     def inserevaga(self,VAGA,ENDERECO):
-        self.cur.execute(f'''insert into PRACAS values('{VAGA}',{ENDERECO})'''),self.cur.commit(),print("vaga inserida"),self.c.close()
+        self.cur.execute(f'''insert into PRACAS values('{VAGA}',{ENDERECO})'''),self.cur.commit(),print("Vaga inserida")
+        return True
 
 
     def insereveiculo(self,PLACA,COR,TIPO):
         self.cur.execute(f'''
-        insert into veiculo values('{PLACA}','{COR}',{TIPO})'''),self.cur.commit(),print("Veiculo inserido"),self.c.close()
+        insert into veiculo values('{PLACA}','{COR}',{TIPO})'''),self.cur.commit(),print("Veiculo inserido")
+        return True
 
 
     def show_vagas(self):
-        vagas=self.cur.execute(f'''select * from PRACAS'''),self.c.close()
-        for i in vagas:
-            return i
+        self.cur.execute(f'''select * from PRACAS''')
+        for i in self.cur.fetchall():
+            print(i)
 
     def show_veiculos(self):
-        veiculos=self.cur.execute(f'''select * from veiculo'''),self.c.close()
-        for i in veiculos:
+        veiculos=self.cur.execute(f'''select * from veiculo''')
+        for i in veiculos.fetchall():
             return i
+
+
