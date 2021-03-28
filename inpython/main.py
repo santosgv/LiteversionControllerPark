@@ -1,13 +1,24 @@
 from tkinter import *
-#import  database as b
+import  database
 main=Tk()
 
 class Validadores():
     def validapraca(self):
-        pass
-    def validaveiculos(self):
-        pass
+        banco=database.Banco()
+        endereco=int(self.EtEnd.get())
+        banco.inserevaga(self.EtVaga.get(),endereco)
+        if banco !=True:
+            self.St['text']=('Praca cadastrada')
 
+    def validaveiculos(self):
+        veiculo=database.Banco()
+        tipo=int(self.EtTipo.get())
+        veiculo.insereveiculo(self.Etplaca.get(),self.EtCor.get(),tipo)
+        if veiculo !=True:
+            self.Stsvaiculo['text']='Veiculo Cadastrado'
+
+    def movimentacao(self):
+        pass
 
 class Aplicacao(Validadores):
     def __init__(self):
@@ -40,6 +51,9 @@ class Aplicacao(Validadores):
 
         self.BtCadvaga=Button(nwwindow,text='Cadastrar vaga',bg='green',command=self.validapraca)
         self.BtCadvaga.place(relx=0.30,rely=0.65)
+        self.St=Label(nwwindow,text="",bg='white')
+        self.St.place(relx=0.30,rely=0.80)
+
     def IVeiculo(self):
         Iveiculos=Toplevel(self.principal,bg='white')
         Iveiculos.geometry('250x184')
@@ -58,8 +72,17 @@ class Aplicacao(Validadores):
         self.EtTipo=Entry(Iveiculos)
         self.EtTipo.place(relx=0.65,rely=0.20,relwidth=0.08)
 
-        self.BtCadvaga=Button(Iveiculos,text='Cadastrar Veiculo',bg='green',command=self.validaveiculos)
-        self.BtCadvaga.place(relx=0.30,rely=0.65)
+        self.BtCadvaiculo=Button(Iveiculos,text='Cadastrar Veiculo',bg='green',command=self.validaveiculos)
+        self.BtCadvaiculo.place(relx=0.30,rely=0.65)
+
+        self.Stsvaiculo=Label(Iveiculos,text='',bg='white')
+        self.Stsvaiculo.place(relx=0.30,rely=0.80)
+    def Imovimentacao(self):
+        iMovie=Toplevel(self.principal,bg='white')
+        iMovie.geometry('250x184')
+        iMovie.title('Movimentacao de Praca')
+        iMovie.resizable(False,False)
+        Button(iMovie,text='Movimentacao de Praca',command=self.movimentacao).place(relx=0.01,rely=0.10)
     def LbandButtons(self):
         self.btpracas=Button(self.principal,text='Nova Praca',fg='White',bg='#836FFF',command=self.Ipraca)
         self.btpracas.place(relx=0.10,rely=0.10)
@@ -67,6 +90,6 @@ class Aplicacao(Validadores):
         self.btveiculo=Button(self.principal,text='Novo Veiculo',fg='White',bg='#836FFF',command=self.IVeiculo)
         self.btveiculo.place(relx=0.40,rely=0.10)
 
-        self.btmovimentacao=Button(self.principal,text='Movimentacao',fg='White',bg='#836FFF')
+        self.btmovimentacao=Button(self.principal,text='Movimentacao',fg='White',bg='#836FFF',command=self.Imovimentacao)
         self.btmovimentacao.place(relx=0.70,rely=0.10)
 Aplicacao()
