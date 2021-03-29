@@ -85,9 +85,9 @@ class Aplicacao(Validadores):
         iMovie.resizable(False,False)
         Button(iMovie,text='Movimentacao de Praca',command=self.movimentacao).place(relx=0.01,rely=0.10)
     def LbandButtons(self):
-        Button(self.principal,text='Movimentacao',fg='White',bg='#836FFF',command=self.Imovimentacao).place(relx=0.01,rely=0.10)
-        Button(self.principal,text='Registrar entrada',bg='white').place(relx=0.35,rely=0.10)
-        Button(self.principal,text='Registrar saida',bg='white').place(relx=0.75,rely=0.10)
+        Button(self.principal,text='Movimentacao',fg='White',bg='#836FFF',command=self.Imovimentacao).place(relx=0.05,rely=0.10)
+        Button(self.principal,text='Registrar entrada',fg='white',bg='#836FFF').place(relx=0.42,rely=0.10)
+        Button(self.principal,text='Registrar saida',fg='white',bg='#836FFF').place(relx=0.80,rely=0.10)
     def Menus(self):
         menubar=Menu(self.main)
         self.main.config(menu=menubar)
