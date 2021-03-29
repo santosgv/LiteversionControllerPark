@@ -1,5 +1,6 @@
 from tkinter import *
-import  database
+import database
+
 main=Tk()
 
 class Validadores():
@@ -25,6 +26,7 @@ class Aplicacao(Validadores):
         self.main=main
         self.Telas()
         self.Frame()
+        self.Menus()
         self.LbandButtons()
         main.mainloop()
     def Telas(self):
@@ -53,7 +55,6 @@ class Aplicacao(Validadores):
         self.BtCadvaga.place(relx=0.30,rely=0.65)
         self.St=Label(nwwindow,text="",bg='white')
         self.St.place(relx=0.30,rely=0.80)
-
     def IVeiculo(self):
         Iveiculos=Toplevel(self.principal,bg='white')
         Iveiculos.geometry('250x184')
@@ -84,12 +85,17 @@ class Aplicacao(Validadores):
         iMovie.resizable(False,False)
         Button(iMovie,text='Movimentacao de Praca',command=self.movimentacao).place(relx=0.01,rely=0.10)
     def LbandButtons(self):
-        self.btpracas=Button(self.principal,text='Nova Praca',fg='White',bg='#836FFF',command=self.Ipraca)
-        self.btpracas.place(relx=0.10,rely=0.10)
+        Button(self.principal,text='Movimentacao',fg='White',bg='#836FFF',command=self.Imovimentacao).place(relx=0.01,rely=0.10)
+        Button(self.principal,text='Registrar entrada',bg='white').place(relx=0.35,rely=0.10)
+        Button(self.principal,text='Registrar saida',bg='white').place(relx=0.75,rely=0.10)
+    def Menus(self):
+        menubar=Menu(self.main)
+        self.main.config(menu=menubar)
+        Menumain=Menu(menubar)
+        def Quit(): self.main.destroy()
+        menubar.add_cascade(label='Cadastros',menu=Menumain)
+        Menumain.add_command(label='Cadastrar Vaga',command=self.Ipraca)
+        Menumain.add_command(label='Cadastrar veiculos',command=self.IVeiculo)
+        Menumain.add_command(label='Sair',command=Quit)
 
-        self.btveiculo=Button(self.principal,text='Novo Veiculo',fg='White',bg='#836FFF',command=self.IVeiculo)
-        self.btveiculo.place(relx=0.40,rely=0.10)
-
-        self.btmovimentacao=Button(self.principal,text='Movimentacao',fg='White',bg='#836FFF',command=self.Imovimentacao)
-        self.btmovimentacao.place(relx=0.70,rely=0.10)
 Aplicacao()
