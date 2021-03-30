@@ -18,15 +18,20 @@ class Banco():
         insert into veiculo values('{PLACA}','{COR}',{TIPO})'''),self.cur.commit(),print("Veiculo inserido")
         return True
 
+    def Regientrada(self,VEICULO):
+        self.cur.execute(f'''insert into movimentacao values(getdate(),{VEICULO},'S')'''),self.cur.commit(),print('Registrado')
 
     def show_vagas(self):
-        self.cur.execute(f'''select * from PRACAS''')
-        for i in self.cur.fetchall():
+        VAGAS=self.cur.execute(f'''select * from PRACAS''')
+        for i in VAGAS.fetchall():
             print(i)
-
-    def show_veiculos(self):
-        veiculos=self.cur.execute(f'''select * from veiculo''')
-        for i in veiculos.fetchall():
             return i
 
+    def show_veiculos(self):
+        resultado=self.cur.execute(f'''select * from VEICULO''')
+        for i in resultado.fetchall():
+            print(i)
+            return i
 
+b=Banco()
+b.show_veiculos()
