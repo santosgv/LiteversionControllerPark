@@ -2,6 +2,7 @@ from tkinter import *
 import database
 from time import strftime
 from tkinter import ttk
+
 main = Tk()
 
 
@@ -24,8 +25,9 @@ class Validadores():
         pass
 
     def Regentrada(self):
-        entrada=database.Banco()
+        entrada = database.Banco()
         entrada.Regientrada()
+
 
 class Aplicacao(Validadores):
     def __init__(self):
@@ -88,27 +90,33 @@ class Aplicacao(Validadores):
 
         self.Stsvaiculo = Label(Iveiculos, text='', bg='white')
         self.Stsvaiculo.place(relx=0.30, rely=0.80)
+
     def Ishowvec(self):
         Ishowveiculo = Toplevel(self.principal, bg='white')
         Ishowveiculo.geometry('250x250')
         Ishowveiculo.title('Todos os veiculos')
         Ishowveiculo.resizable(False, False)
-        grid=ttk.Treeview(Ishowveiculo,columns=('ID','PLACA','COR','TIPO'),show='headings')
-        grid.column('ID',minwidth=0,width=50)
-        grid.column('PLACA', minwidth=0, width=50)
-        grid.column('COR', minwidth=0, width=50)
-        grid.column('TIPO', minwidth=0, width=50)
-        grid.heading('ID',text='ID')
-        grid.heading('PLACA',text='PLACA')
-        grid.heading('COR',text='COR')
-        grid.heading('TIPO',text='TIPO')
-        grid.pack()
-        def exibir():
-            grid.delete(*grid.get_children())
-            veiculos=database.Banco()
-            for i in veiculos.show_veiculos():
-                grid.insert("",END,values=i)
-        exibir()
+        self.grid = ttk.Treeview(Ishowveiculo, columns=('col1', 'col2', 'col3', 'col4'), show='headings')
+        self.grid.place(relx=0.01, rely=0.1, relwidth=0.95, relheight=0.95)
+        self.grid.column('#0', width=0, minwidth=0)
+        self.grid.column('col1', minwidth=0, width=20)
+        self.grid.column('col2', minwidth=0, width=50)
+        self.grid.column('col3', minwidth=0, width=50)
+        self.grid.column('col4', minwidth=0, width=20)
+        self.grid.heading('#0', text='')
+        self.grid.heading('#1', text='ID')
+        self.grid.heading('#2', text='PLACA')
+        self.grid.heading('#3', text='COR')
+        self.grid.heading('#4', text='T')
+        self.grid.pack()
+
+        def Gredviw():
+            banco = database.Banco()
+            a = banco.show_veiculos()
+            for i in a:
+                self.grid.insert("", END, values=i)
+        Gredviw()
+
     def Imovimentacao(self):
         iMovie = Toplevel(self.principal, bg='white')
         iMovie.geometry('250x184')
@@ -116,21 +124,22 @@ class Aplicacao(Validadores):
         iMovie.resizable(False, False)
         Button(iMovie, text='Movimentacao de Praca', command=self.movimentacao).place(relx=0.01, rely=0.10)
 
-
     def Ientrada(self):
         ientrada = Toplevel(self.principal, bg='white')
         ientrada.geometry('250x184')
         ientrada.title('Entrada de veiculo')
         ientrada.resizable(False, False)
-        Label(ientrada,text='Codigo veiculo',bg='white').place(relx=0.35,rely=0.01)
-        self.entent=Entry(ientrada)
-        self.entent.place(relx=0.20,rely=0.15)
-        Button(ientrada,text='Exibir veiculos',command=self.Ishowvec).place(relx=0.30, rely=0.60)
+        Label(ientrada, text='Codigo veiculo', bg='white').place(relx=0.35, rely=0.01)
+        self.entent = Entry(ientrada)
+        self.entent.place(relx=0.20, rely=0.15)
+        Button(ientrada, text='Exibir veiculos', command=self.Ishowvec).place(relx=0.30, rely=0.60)
         Button(ientrada, text='registrar').place(relx=0.35, rely=0.80)
 
     def LbandButtons(self):
-        Button(self.principal, text='Movimentacao', fg='White', bg='#836FFF', command=self.Imovimentacao).place(relx=0.05, rely=0.10)
-        Button(self.principal, text='Registrar entrada', fg='white', bg='#836FFF',command=self.Ientrada).place(relx=0.42, rely=0.10)
+        Button(self.principal, text='Movimentacao', fg='White', bg='#836FFF', command=self.Imovimentacao).place(
+            relx=0.05, rely=0.10)
+        Button(self.principal, text='Registrar entrada', fg='white', bg='#836FFF', command=self.Ientrada).place(
+            relx=0.42, rely=0.10)
         Button(self.principal, text='Registrar saida', fg='white', bg='#836FFF').place(relx=0.80, rely=0.10)
 
         self.lb_relogio = Label(self.main, background='white', font=('verdana', 12))
