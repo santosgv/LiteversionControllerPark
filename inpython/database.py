@@ -27,11 +27,4 @@ class Banco():
             print(i)
             return i
 
-    def show_veiculos(self):
-        resultado=self.cur.execute(f'''select * from VEICULO''')
-        for i in resultado.fetchall():
-            print(i)
-            return i
 
-b=Banco()
-b.show_veiculos()
