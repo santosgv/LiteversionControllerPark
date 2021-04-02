@@ -93,15 +93,15 @@ class Aplicacao(Validadores):
 
     def Ishowvec(self):
         Ishowveiculo = Toplevel(self.principal, bg='white')
-        Ishowveiculo.geometry('250x250')
+        Ishowveiculo.geometry('300x250')
         Ishowveiculo.title('Todos os veiculos')
-        Ishowveiculo.resizable(False, False)
+        Ishowveiculo.resizable(True, True)
         self.grid = ttk.Treeview(Ishowveiculo, columns=('col1', 'col2', 'col3', 'col4'), show='headings')
         self.grid.place(relx=0.01, rely=0.1, relwidth=0.95, relheight=0.95)
         self.grid.column('#0', width=0, minwidth=0)
-        self.grid.column('col1', minwidth=0, width=20)
-        self.grid.column('col2', minwidth=0, width=50)
-        self.grid.column('col3', minwidth=0, width=50)
+        self.grid.column('col1', minwidth=0, width=50)
+        self.grid.column('col2', minwidth=0, width=100)
+        self.grid.column('col3', minwidth=0, width=100)
         self.grid.column('col4', minwidth=0, width=20)
         self.grid.heading('#0', text='')
         self.grid.heading('#1', text='ID')
@@ -111,9 +111,11 @@ class Aplicacao(Validadores):
         self.grid.pack()
 
         def Gredviw():
+            self.grid.delete(*self.grid.get_children())
             banco = database.Banco()
-            a = banco.show_veiculos()
-            for i in a:
+            resultado=banco.cur.execute(f'''select ID,PLACA,COR,TIPO from VEICULO order by PLACA asc''')
+
+            for i in resultado:
                 self.grid.insert("", END, values=i)
         Gredviw()
 
