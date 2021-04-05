@@ -115,8 +115,8 @@ class Aplicacao(Validadores):
             banco = database.Banco()
             resultado=banco.cur.execute(f'''select ID,PLACA,COR,TIPO from VEICULO order by PLACA asc''')
 
-            for i in resultado:
-                self.grid.insert("", END, values=i)
+            for linhas in resultado:
+                self.grid.insert("", END, values=(linhas[0],linhas[1],linhas[2],linhas[3]))
         Gredviw()
 
     def Imovimentacao(self):
