@@ -26,7 +26,10 @@ class Validadores():
 
     def Regentrada(self):
         entrada = database.Banco()
-        entrada.Regientrada()
+        veiculo=int(self.entent.get())
+        entrada.Regientrada(veiculo)
+        if veiculo !=True:
+            self.lbentrada['text']="Entrada registrada"
 
 
 class Aplicacao(Validadores):
@@ -131,18 +134,63 @@ class Aplicacao(Validadores):
         ientrada.geometry('250x184')
         ientrada.title('Entrada de veiculo')
         ientrada.resizable(False, False)
-        Label(ientrada, text='Codigo veiculo', bg='white').place(relx=0.35, rely=0.01)
+        Label(ientrada, text='Codigo veiculo', bg='white').place(relx=0.30, rely=0.01)
         self.entent = Entry(ientrada)
         self.entent.place(relx=0.20, rely=0.15)
         Button(ientrada, text='Exibir veiculos', command=self.Ishowvec).place(relx=0.30, rely=0.60)
-        Button(ientrada, text='registrar').place(relx=0.35, rely=0.80)
+        Button(ientrada, text='registrar',command=self.Regentrada).place(relx=0.35, rely=0.80)
+        self.lbentrada=Label(ientrada,text='',bg='white')
+        self.lbentrada.place(relx=0.25, rely=0.40)
+
+    def Iocupacao(self):
+        Iocupado = Toplevel(self.principal, bg='white')
+        Iocupado.geometry('350x250')
+        Iocupado.title('Ocupacao')
+        Iocupado.resizable(True, True)
+        self.gridocupado = ttk.Treeview(Iocupado, columns=('col1', 'col2', 'col3', 'col4','col5'), show='headings')
+        self.gridocupado.place(relx=0.01, rely=0.1, relwidth=0.95, relheight=0.95)
+        self.gridocupado.column('#0', width=0, minwidth=0)
+        self.gridocupado.column('col1', minwidth=0, width=20)
+        self.gridocupado.column('col2', minwidth=0, width=100)
+        self.gridocupado.column('col3', minwidth=0, width=100)
+        self.gridocupado.column('col4', minwidth=0, width=100)
+        self.gridocupado.column('col5', minwidth=0, width=20)
+        self.gridocupado.heading('#0', text='')
+        self.gridocupado.heading('#1', text='ID')
+        self.gridocupado.heading('#2', text='ENTRADA')
+        self.gridocupado.heading('#3', text='PLACA')
+        self.gridocupado.heading('#4', text='COR')
+        self.gridocupado.heading('#5', text='T')
+        self.gridocupado.pack()
+
+        def Gredviw():
+            self.gridocupado.delete(*self.gridocupado.get_children())
+            banco = database.Banco()
+            resultado=banco.cur.execute(f'''select A.ID,A.DATAINICIO,B.PLACA,B.COR,B.TIPO from movimentacao A JOIN VEICULO B ON A.VEICULO=B.ID''')
+
+            for linhas in resultado:
+                self.gridocupado.insert("", END, values=(linhas[0],linhas[1],linhas[2],linhas[3],linhas[4]))
+        Gredviw()
+
+    def Isaida(self):
+        isaida = Toplevel(self.principal, bg='white')
+        isaida.geometry('250x184')
+        isaida.title('Saida de veiculo')
+        isaida.resizable(False, False)
+        Label(isaida, text='Codigo veiculo', bg='white').place(relx=0.30, rely=0.01)
+        self.entent = Entry(isaida)
+        self.entent.place(relx=0.20, rely=0.15)
+        Button(isaida, text='Ocupacao',command=self.Iocupacao).place(relx=0.30, rely=0.60)
+        Button(isaida, text='Dar saida').place(relx=0.30, rely=0.80)
+        self.lbsaida=Label(isaida,text='',bg='white')
+        self.lbsaida.place(relx=0.25, rely=0.40)
 
     def LbandButtons(self):
         Button(self.principal, text='Movimentacao', fg='White', bg='#836FFF', command=self.Imovimentacao).place(
             relx=0.05, rely=0.10)
         Button(self.principal, text='Registrar entrada', fg='white', bg='#836FFF', command=self.Ientrada).place(
             relx=0.42, rely=0.10)
-        Button(self.principal, text='Registrar saida', fg='white', bg='#836FFF').place(relx=0.80, rely=0.10)
+        Button(self.principal, text='Registrar saida', fg='white', bg='#836FFF',command=self.Isaida).place(relx=0.80, rely=0.10)
 
         self.lb_relogio = Label(self.main, background='white', font=('verdana', 12))
         self.lb_relogio.place(relx=0.35, rely=0.90, relwidth=0.25, relheight=0.08)
