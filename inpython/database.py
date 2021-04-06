@@ -19,12 +19,14 @@ class Banco():
         return True
 
     def Regientrada(self,VEICULO):
-        self.cur.execute(f'''insert into movimentacao values(getdate(),{VEICULO},'S')'''),self.cur.commit(),print('Registrado')
+        self.cur.execute(f'''insert into movimentacao (DATAINICIO,VEICULO,OCUPADO) values(getdate(),{VEICULO},'S')'''),self.cur.commit(),print('Registrado')
+        return  True
 
     def show_vagas(self):
         VAGAS=self.cur.execute(f'''select * from PRACAS''')
         for i in VAGAS.fetchall():
             print(i)
             return i
+
 
 
