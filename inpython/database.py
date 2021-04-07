@@ -12,14 +12,17 @@ class Banco():
         self.cur.execute(f'''insert into PRACAS values('{VAGA}',{ENDERECO})'''),self.cur.commit(),print("Vaga inserida")
         return True
 
-
     def insereveiculo(self,PLACA,COR,TIPO):
         self.cur.execute(f'''
         insert into veiculo values('{PLACA}','{COR}',{TIPO})'''),self.cur.commit(),print("Veiculo inserido")
         return True
 
-    def Regientrada(self,VEICULO):
-        self.cur.execute(f'''insert into movimentacao (DATAINICIO,VEICULO,OCUPADO) values(getdate(),{VEICULO},'S')'''),self.cur.commit(),print('Registrado')
+    def Regientrada(self,VEICULO,PRACA):
+        self.cur.execute(f'''insert into movimentacao (DATAINICIO,VEICULO,OCUPADO,P) values(getdate(),{VEICULO},'S',{PRACA})'''),self.cur.commit(),print('Registrado')
+        return  True
+
+    def Regisaida(self,ID):
+        self.cur.execute(f'''UPDATE movimentacao set DATAFINAL=GETDATE(),OCUPADO='N' where ID={ID}'''),self.cur.commit(),print('SAIDA REGISTRADA')
         return  True
 
     def show_vagas(self):
